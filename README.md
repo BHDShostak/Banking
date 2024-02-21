@@ -2,7 +2,7 @@
 
 # To run localy
 
-1. run MongoDB localy
+1. run Mysql DB localy
 ```
 docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql
 ```
