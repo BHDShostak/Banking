@@ -4,7 +4,7 @@
 
 1. run MongoDB localy
 ```
-docker run -d  --name mongo  -p 27888:27017 -e MONGO_INITDB_ROOT_USERNAME=phoqer -e MONGO_INITDB_ROOT_PASSWORD=change-me mongo
+docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql
 ```
 if you use DBeaver Community -> open new script, following Banking/dataForDB.txt and copy to clipboard code, paste and run with DBeaver
 ```
