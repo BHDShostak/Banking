@@ -2,11 +2,12 @@ package main
 
 import (
 	"banking/app"
-	"fmt"
+	"banking/logger"
 )
 
 func main() {
 
+	logger.Info("Starting our application...")
 	app.Start()
-	fmt.Println("OK")
+
 }
