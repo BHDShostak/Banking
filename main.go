@@ -7,7 +7,7 @@ import (
 
 func main() {
 
-	logger.Info("Starting our application...")
+	logger.Info("Starting application...")
 	app.Start()
 
 }
