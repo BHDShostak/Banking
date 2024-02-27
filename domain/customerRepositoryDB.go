@@ -61,6 +61,13 @@ func NewCustomerRepositoryDB() CustomerRepositoryDB {
 	dbPort := os.Getenv("DB_PORT")
 	dbName := os.Getenv("DB_NAME")
 
+	// root:my-secret-pw@tcp(localhost:3306)/banking // old way
+	// export DB_USER=root
+	// export DB_PASSWD=my-secret-pw
+	// export DB_ADDR=localhost
+	// export DB_PORT=3306
+	// export DB_NAME=banking
+
 	dataSource := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPasswd, dbAddr, dbPort, dbName)
 
 	client, err := sqlx.Open("mysql", dataSource)
