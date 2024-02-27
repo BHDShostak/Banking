@@ -4,6 +4,8 @@ import (
 	"banking/errs"
 	"banking/logger"
 	"database/sql"
+	"fmt"
+	"os"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -32,7 +34,7 @@ func (d CustomerRepositoryDB) FindAll(status string) ([]Customer, *errs.AppError
 		logger.Error("Error while queryng customer table " + err.Error())
 		return nil, errs.NewUnexpectedError("Unexpected database error")
 	}
-  
+
 	return customers, nil
 }
 
@@ -53,7 +55,22 @@ func (d CustomerRepositoryDB) ById(id string) (*Customer, *errs.AppError) {
 }
 
 func NewCustomerRepositoryDB() CustomerRepositoryDB {
-	client, err := sqlx.Open("mysql", "root:my-secret-pw@tcp(localhost:3306)/banking")
+	dbUser := os.Getenv("DB_USER")
+	dbPasswd := os.Getenv("DB_PASSWD")
+	dbAddr := os.Getenv("DB_ADDR")
+	dbPort := os.Getenv("DB_PORT")
+	dbName := os.Getenv("DB_NAME")
+
+	// root:my-secret-pw@tcp(localhost:3306)/banking // old way
+	// export DB_USER=root
+	// export DB_PASSWD=my-secret-pw
+	// export DB_ADDR=localhost
+	// export DB_PORT=3306
+	// export DB_NAME=banking
+
+	dataSource := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPasswd, dbAddr, dbPort, dbName)
+
+	client, err := sqlx.Open("mysql", dataSource)
 	if err != nil {
 		panic(err)
 	}
