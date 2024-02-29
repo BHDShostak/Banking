@@ -16,6 +16,10 @@ type DefaultAccountService struct {
 }
 
 func (s DefaultAccountService) NewAccount(req dto.NewAccountRequest) (*dto.NewAccountResponse, *errs.AppError) {
+	err := req.Validate()
+	if err != nil {
+		return nil, err
+	}
 	a := domain.Account{
 		AccountId:   "",
 		CustomerId:  req.CustomerId,
